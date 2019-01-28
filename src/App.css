@@ -1,0 +1,123 @@
+body {
+  font-family: 'Open Sans';
+  font-weight: 300;
+}
+
+.full-page {
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  display: flex;
+}
+
+.profile-image {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 1em;
+}
+
+.user-images-row {
+  background-color: white;
+  box-shadow: 2px 5px 5px 1px lightgrey;
+  padding: 1em;
+  margin-right: 222px;
+}
+
+.username {
+  font-weight: 400;
+}
+
+.feed-picture {
+  object-fit: cover;
+  width: 100%;
+  height: 250px;
+}
+
+#nav a {
+  margin-right: 20px;
+}
+
+
+
+.load-container {
+  display: flex;
+  /* border: 1px solid #eaecef; */
+  height: 200px;
+  width: 90%;
+  padding: 1%;
+  background-color: white;
+  /* box-shadow: 2px 5px 5px 1px lightgrey; */
+}
+
+.l-image-load-container {
+  width: 15%;
+  padding: 20px;
+}
+
+.l-image {
+  border: 1px solid white;
+  width: 100%;
+  height: 100%;
+  background-color: #f3f3f3;
+}
+
+.load-content {
+  border: 1px solid white;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.stripe {
+  border: 1px solid white;
+  height: 20%;
+  background-color: #f3f3f3;
+}
+
+.small-stripe {
+  width: 40%;
+}
+
+.medium-stripe {
+  width: 70%;
+}
+
+.long-stripe {
+  width: 100%;
+}
+
+.load-container.loading .l-image, .load-container.loading .stripe {
+  animation: hintloading 2s ease-in-out 0s infinite reverse;
+  -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;
+}
+
+@keyframes hintloading
+{
+  0% {
+    opacity: 0.5;
+  }
+  50%  {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@-webkit-keyframes hintloading
+{
+  0% {
+    opacity: 0.5;
+  }
+  50%  {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+

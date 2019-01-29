@@ -48,7 +48,7 @@ class AuthenticationModal extends React.Component {
           className={this.props.className}
         >
           {this.state.showLogIn ? (
-            <LoginForm closeModal={this.closeModal} toggleForm={this.toggleForm} />
+            <LoginForm toggleNotice={this.props.toggleNotice} closeModal={this.closeModal} toggleForm={this.toggleForm} />
           ) : (
             <SignUpForm closeModal={this.closeModal} toggleForm={this.toggleForm} />
           )}

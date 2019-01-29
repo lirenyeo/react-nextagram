@@ -1,17 +1,26 @@
 import React from 'react'
 import Axios from 'axios'
 import { withRouter } from 'react-router-dom'
-import { Button, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap'
+import {
+  Button,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap'
 
 class LoginForm extends React.Component {
   state = {
     email: '',
     password: '',
-    hasError: false,
     isLoading: false,
+    errorMessage: '',
   }
 
-  handleInput = ({target}) => {
+  handleInput = ({ target }) => {
     this.setState({
       [target.name]: target.value
     })
@@ -19,60 +28,74 @@ class LoginForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.setState({isLoading: true})
-    Axios.post('https://insta.nextacademy.com/api/v1/login', {
-      email: this.state.email,
-      password: this.state.password,
+    this.setState({ isLoading: true })
+    const { email, password } = this.state
+    Axios({
+      method: 'post',
+      url: 'https://insta.nextacademy.com/api/v1/login',
+      data: {
+        email,
+        password
+      }
     })
-    .then(res => {
-      console.log('Successfully logged in!', res.data.auth_token)
-      localStorage.setItem('jwt', res.data.auth_token)
-      this.props.closeModal()
-    })
-    .catch(err => {
-      console.log(err)
-      this.setState({
-        hasError: true,
-        isLoading: false,
+      .then(resp => {
+        console.log(resp.data.auth_token)
+        localStorage.setItem('jwt', resp.data.auth_token)
+        this.props.toggleNotice()
+        this.props.closeModal()
+        this.setState({ isLoading: false })
       })
-    })
-  }
-
-  logout = () => {
-    localStorage.removeItem('jwt')
-    this.forceUpdate()
+      .catch(err => {
+        console.log(err)
+        this.setState({ isLoading: false, errorMessage: err.message })
+      })
   }
 
   render() {
-    const { email, password, hasError, isLoading } = this.state
+    const { email, password, errorMessage, isLoading } = this.state
     return (
       <>
         <ModalHeader toggle={this.toggle}>Login</ModalHeader>
         <ModalBody>
-
-          { hasError && <p className='text-danger'>Invalid credentials. Try again.</p> }
-
-          <Form id='login-form' onSubmit={this.handleSubmit}>
+        { errorMessage && <p className='text-danger'>{errorMessage}</p> }
+          <Form id="login-form" onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label>Email</Label>
-              <Input type="email" name="email" value={email} onChange={this.handleInput} />
+              <Input
+                type="email"
+                name="email"
+                value={email}
+                onChange={this.handleInput}
+              />
             </FormGroup>
             <FormGroup>
               <Label>Password</Label>
-              <Input type="password" name="password" value={password} onChange={this.handleInput} />
+              <Input
+                type="password"
+                name="password"
+                value={password}
+                onChange={this.handleInput}
+              />
             </FormGroup>
           </Form>
-          <p style={{fontSize: '0.9em'}}>New member? <a href="#" onClick={this.props.toggleForm}>Sign up here.</a></p>
+          <p style={{ fontSize: '0.9em' }}>
+            New member?{' '}
+            <a href="#" onClick={this.props.toggleForm}>
+              Sign up here.
+            </a>
+          </p>
         </ModalBody>
         <ModalFooter>
           <input
-            className='btn btn-primary'
+            className="btn btn-primary"
             type="submit"
-            value={isLoading ? 'Logging In...' : 'Log In'}
-            form='login-form'
+            form="login-form"
+            value={isLoading ? 'Logging in...' : 'Log In'}
             disabled={isLoading}
           />
-          <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          <Button color="secondary" onClick={this.toggle}>
+            Cancel
+          </Button>
         </ModalFooter>
       </>
     )

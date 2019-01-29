@@ -9,7 +9,7 @@ import {
   NavItem,
   NavLink } from 'reactstrap'
 
-import LoginModal from '../containers/LoginModal'
+import AuthenticationModal from '../containers/AuthenticationModal'
 
 export default class NavigationBar extends React.Component {
   state = {
@@ -39,7 +39,7 @@ export default class NavigationBar extends React.Component {
                 </NavItem>
               }
               <NavItem>
-                <NavLink tag={LoginModal} />
+                <NavLink tag={AuthenticationModal} />
               </NavItem>
             </Nav>
           </Collapse>

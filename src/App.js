@@ -11,20 +11,23 @@ import MyProfilePage from './pages/MyProfilePage'
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
 
+export const LangContext = React.createContext()
+
 class App extends React.Component {
   state = {
-    showNotice: false
+    lang: 'english'
   }
 
-  toggleNotice = () => this.setState({showNotice: true})
+  setLang = newLanguage => {
+    this.setState({lang: newLanguage})
+  }
 
   render() {
     return (
-      <>
-        <Navbar toggleNotice={this.toggleNotice} />
-        {this.state.showNotice && (
-          <h1 className="text-success">YOU HAVE LOGGED IN</h1>
-        )}
+      <LangContext.Provider
+        value={{ lang: this.state.lang, setLang: this.setLang }}
+      >
+        <Navbar />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route
@@ -37,7 +40,7 @@ class App extends React.Component {
             component={props => <MyProfilePage {...props} />}
           />
         </Switch>
-      </>
+      </LangContext.Provider>
     )
   }
 }

@@ -39,9 +39,7 @@ class LoginForm extends React.Component {
       }
     })
       .then(resp => {
-        console.log(resp.data.auth_token)
         localStorage.setItem('jwt', resp.data.auth_token)
-        this.props.toggleNotice()
         this.props.closeModal()
         this.setState({ isLoading: false })
       })

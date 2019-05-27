@@ -39,7 +39,7 @@ export default class NavigationBar extends React.Component {
                 </NavItem>
               }
               <NavItem>
-                <AuthenticationModal toggleNotice={this.props.toggleNotice} />
+                <AuthenticationModal />
               </NavItem>
             </Nav>
           </Collapse>

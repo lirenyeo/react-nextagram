@@ -30,7 +30,7 @@ class SignUpForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     this.setState({isLoading: true})
-    Axios.post('https://insta.nextacademy.com/api/v1/users/new', {
+    Axios.post('https://insta.nextacademy.com/api/v1/users/', {
       email: this.state.email,
       password: this.state.password,
       username: this.state.username,
